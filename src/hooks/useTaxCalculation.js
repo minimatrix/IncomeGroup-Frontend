@@ -14,12 +14,16 @@ const useTaxCalculation = ({original, percentage}) => {
             original,
             percentage
         }).then(res => {
+            if(isNaN(res?.data?.total))
+            {
+                throw("The values resulted in an invalid total");
+            }
             setResult(res.data);
             setStatus("COMPLETE")
         })
         .catch(e => {
             setStatus("ERROR");
-            setResult(e?.message);
+            setResult(e);
         });
     }
 
